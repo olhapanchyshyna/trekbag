@@ -1,6 +1,6 @@
 
 export default function BeckgroundHeading() {
 	return (
-		<div>BeckgroundHeading</div>
+		<h1>Trekbag</h1>
 	)
 }
