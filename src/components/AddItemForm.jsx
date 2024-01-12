@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import Button from './Button'
 
-export default function AddItemForm({ setItem }) {
+export default function AddItemForm({ onAddItem }) {
 	const [itemText, setItemText] = useState('')
 	const inputRef = useRef()
 
@@ -9,16 +9,12 @@ export default function AddItemForm({ setItem }) {
 		e.preventDefault()
 
 		if (itemText !== '') {
-			const newItem = {
-				id: new Date().getTime(),
-				name: itemText,
-				packed: false,
-			}
-			setItem(prev => [...prev, newItem])
+			onAddItem(itemText)
 		} else {
 			alert("Item can't be empty")
 			inputRef.current.focus()
 		}
+		
 		setItemText('')
 	}
 
