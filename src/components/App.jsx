@@ -7,7 +7,7 @@ import ItemList from './ItemList'
 import Sidebar from './Sidebar'
 
 function App() {
-	const [item, setItem] = useState(initialItems)
+	const [items, setItems] = useState(initialItems)
 
 	const handleAddItem = newItemText => {
 		const newItem = {
@@ -15,27 +15,33 @@ function App() {
 			name: newItemText,
 			packed: false,
 		}
-		const newItems = [...item, newItem]
+		const newItems = [...items, newItem]
 
-		setItem(newItems)
+		setItems(newItems)
 	}
-	const handleRemoveItems = () => {
-		setItem([])
+
+  const handleRemoveItem = (id) => {
+    const newItem = items.filter((item) => item.id !== id )
+    setItems(newItem)
+  }
+
+	const handleRemoveAllItems = () => {
+		setItems([])
 	}
 	const handleResetToInitial = () => {
-		setItem(initialItems)
+		setItems(initialItems)
 	}
   const handleMarkAllAsComplete = () => {
-    const newItem = item.map((i) => {
+    const newItem = items.map((i) => {
       return {...i, packed: true}
     })
-		setItem(newItem)
+		setItems(newItem)
 	}
   const handleMarkAllAsIncomplete = () => {
-    const newItem = item.map((i) => {
+    const newItem = items.map((i) => {
       return {...i, packed: false}
     })
-		setItem(newItem)
+		setItems(newItem)
 	}
 
 	return (
@@ -43,10 +49,10 @@ function App() {
 			<BeckgroundHeading />
 			<main>
 				<Header />
-				<ItemList item={item} />
+				<ItemList item={items} handleRemoveItem={handleRemoveItem}/>
 				<Sidebar
 					handleAddItem={handleAddItem}
-					handleRemoveItems={handleRemoveItems}
+					handleRemoveAllItems={handleRemoveAllItems}
 					handleResetToInitial={handleResetToInitial}
           handleMarkAllAsComplete={handleMarkAllAsComplete}
           handleMarkAllAsIncomplete={handleMarkAllAsIncomplete}

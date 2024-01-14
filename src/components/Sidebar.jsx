@@ -3,7 +3,7 @@ import ButtonsGroup from './ButtonsGroup'
 
 export default function Sidebar({
 	handleAddItem,
-	handleRemoveItems,
+	handleRemoveAllItems,
 	handleResetToInitial,
 	handleMarkAllAsComplete,
 	handleMarkAllAsIncomplete,
@@ -12,7 +12,7 @@ export default function Sidebar({
 		<div className='sidebar'>
 			<AddItemForm onAddItem={handleAddItem} />
 			<ButtonsGroup
-				handleRemoveItems={handleRemoveItems}
+				handleRemoveAllItems={handleRemoveAllItems}
 				handleResetToInitial={handleResetToInitial}
 				handleMarkAllAsComplete={handleMarkAllAsComplete}
 				handleMarkAllAsIncomplete={handleMarkAllAsIncomplete}
