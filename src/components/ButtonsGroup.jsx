@@ -1,6 +1,9 @@
 import Button from './Button'
+import { useItemsContect } from '../lib/hooks'
 
-export default function ButtonsGroup({handleRemoveAllItems, handleResetToInitial, handleMarkAllAsComplete, handleMarkAllAsIncomplete}) {
+export default function ButtonsGroup() {
+	const {handleMarkAllAsComplete, handleMarkAllAsIncomplete, handleResetToInitial, handleRemoveAllItems} = useItemsContect()
+
 	const secondaryButtons = [
 		{
 			text: "Mark all as complete",

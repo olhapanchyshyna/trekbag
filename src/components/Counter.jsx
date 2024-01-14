@@ -1,8 +1,11 @@
-export default function Counter({numberOfItemsPacked, packedItems}) {
+import { useItemsContect } from '../lib/hooks'
 
+export default function Counter() {
+
+	const {items, packedItems} = useItemsContect()
 	return (
 		<p>
-      <b>{packedItems.length}</b> / {numberOfItemsPacked} items packed
+      <b>{packedItems.length}</b> / {items.length} items packed
     </p>
 	)
 }

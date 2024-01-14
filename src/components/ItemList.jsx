@@ -1,6 +1,7 @@
 import Select from 'react-select'
 import EmptyView from './EmptyView'
 import { useMemo, useState } from 'react'
+import { useItemsContect } from '../lib/hooks'
 
 
 const sortingOptions = [
@@ -19,13 +20,18 @@ const sortingOptions = [
 ];
 
 
-export default function ItemList({ item, handleRemoveItem, handleToogleItem }) {
+export default function ItemList() {
+	const {items,
+		handleToogleItem,
+		handleRemoveItem,
+} = useItemsContect()
 
 	const [sortBy, setSortBy] = useState('default')
 
+
 	const sortedItems = useMemo(
     () =>
-      [...item].sort((a, b) => {
+      [...items].sort((a, b) => {
         if (sortBy === "packed") {
           return b.packed - a.packed;
         }
@@ -36,13 +42,14 @@ export default function ItemList({ item, handleRemoveItem, handleToogleItem }) {
 
         return;
       }),
-    [item, sortBy]
+    [items, sortBy]
   );
+	
 	return (
 		<ul className='item-list'>
-			{item.length === 0 ? <EmptyView /> : null}
+			{items.length === 0 ? <EmptyView /> : null}
 
-			{item.length > 0 ? (
+			{items.length > 0 ? (
 				<section className='sorting'>
 					<Select onChange={(option) => {setSortBy(option.value)}} defaultValue={sortingOptions[0]} options={sortingOptions}/>
 				</section>
@@ -50,21 +57,21 @@ export default function ItemList({ item, handleRemoveItem, handleToogleItem }) {
 
 			{sortedItems.map(item => {
 				return (
-					<Item key={item.id} item={item} onRemoveItem={handleRemoveItem} onToogleItem={handleToogleItem}/>
+					<Item key={item.id} item={item} handleRemoveItem={handleRemoveItem} handleToogleItem={handleToogleItem}/>
 				)
 			})}
 		</ul>
 	)
 }
 
-function Item({ item, onRemoveItem, onToogleItem }) {
+function Item({ item, handleRemoveItem, handleToogleItem }) {
 	return (
 		<li className='item'>
 			<label>
-				<input onClick={() => {onToogleItem(item.id)}} type='checkbox' checked={item.packed}/>
+				<input onClick={() => {handleToogleItem(item.id)}} type='checkbox' checked={item.packed}/>
 				{item.name}
 			</label>
-			<button onClick={() => {onRemoveItem(item.id)}}>❌</button>
+			<button onClick={() => {handleRemoveItem(item.id)}}>❌</button>
 		</li>
 	)
 }
