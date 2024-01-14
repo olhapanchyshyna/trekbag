@@ -49,7 +49,7 @@ function App() {
     })
 		setItems(newItem)
 	}
-	
+
   const handleMarkAllAsIncomplete = () => {
     const newItem = items.map((i) => {
       return {...i, packed: false}
@@ -57,11 +57,15 @@ function App() {
 		setItems(newItem)
 	}
 
+	const packedItems = items.filter(item => {
+		return item.packed === true
+	})
+
 	return (
 		<>
 			<BeckgroundHeading />
 			<main>
-				<Header />
+				<Header numberOfItemsPacked={items.length} packedItems={packedItems}/>
 				<ItemList item={items} handleRemoveItem={handleRemoveItem} handleToogleItem={handleToogleItem}/>
 				<Sidebar
 					handleAddItem={handleAddItem}
