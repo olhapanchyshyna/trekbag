@@ -1,8 +1,7 @@
 import Select from 'react-select'
 import EmptyView from './EmptyView'
 import { useMemo, useState } from 'react'
-import { useItemsContect } from '../lib/hooks'
-
+import { useItemsStore } from '../stores/itemsStore'
 
 const sortingOptions = [
 	{
@@ -19,15 +18,12 @@ const sortingOptions = [
 	},
 ];
 
-
 export default function ItemList() {
-	const {items,
-		handleToogleItem,
-		handleRemoveItem,
-} = useItemsContect()
+	const items = useItemsStore((state) => state.items);
+	const removeItem = useItemsStore((state) => state.removeItem);
+	const toogleItem = useItemsStore((state) => state.toogleItem);
 
 	const [sortBy, setSortBy] = useState('default')
-
 
 	const sortedItems = useMemo(
     () =>
@@ -57,21 +53,21 @@ export default function ItemList() {
 
 			{sortedItems.map(item => {
 				return (
-					<Item key={item.id} item={item} handleRemoveItem={handleRemoveItem} handleToogleItem={handleToogleItem}/>
+					<Item key={item.id} item={item} removeItem={removeItem} toogleItem={toogleItem}/>
 				)
 			})}
 		</ul>
 	)
 }
 
-function Item({ item, handleRemoveItem, handleToogleItem }) {
+function Item({ item, removeItem, toogleItem }) {
 	return (
 		<li className='item'>
 			<label>
-				<input onClick={() => {handleToogleItem(item.id)}} type='checkbox' checked={item.packed}/>
+				<input onClick={() => {toogleItem(item.id)}} type='checkbox' checked={item.packed}/>
 				{item.name}
 			</label>
-			<button onClick={() => {handleRemoveItem(item.id)}}>❌</button>
+			<button onClick={() => {removeItem(item.id)}}>❌</button>
 		</li>
 	)
 }

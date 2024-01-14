@@ -1,17 +1,18 @@
 import { useRef, useState } from 'react'
 import Button from './Button'
-import { useItemsContect } from '../lib/hooks'
+import { useItemsStore } from '../stores/itemsStore'
 
 export default function AddItemForm() {
 	const [itemText, setItemText] = useState('')
 	const inputRef = useRef()
-	const {handleAddItem} = useItemsContect()
+
+	const addItem = useItemsStore((state) => state.addItem);
 
 	const handleSubmit = e => {
 		e.preventDefault()
 
 		if (itemText !== '') {
-			handleAddItem(itemText)
+			addItem(itemText)
 		} else {
 			alert("Item can't be empty")
 			inputRef.current.focus()
