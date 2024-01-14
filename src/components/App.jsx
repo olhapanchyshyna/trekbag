@@ -38,15 +38,18 @@ function App() {
 	const handleRemoveAllItems = () => {
 		setItems([])
 	}
+
 	const handleResetToInitial = () => {
 		setItems(initialItems)
 	}
+
   const handleMarkAllAsComplete = () => {
     const newItem = items.map((i) => {
       return {...i, packed: true}
     })
 		setItems(newItem)
 	}
+	
   const handleMarkAllAsIncomplete = () => {
     const newItem = items.map((i) => {
       return {...i, packed: false}
